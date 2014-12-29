@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="UTF-8">
+  <script src="../libs/angular/angular.js"></script>
+</head>
+
+<body>
+  <div ng-init='countryList = [{name: "korea", code: "kr", continent: "asia"},
+                               {name: "japan", code: "jp", continent: "asia"},
+                               {name: "england", code: "en", continent: "europe"}]'>
+    <form name='myRouteForm'>
+      <div>
+        <select ng-model='depCountry' ng-options='country.name for country in countryList' ng-required='true'>
+          <option value=''>select</option>
+        </select>
+      </div>
+
+      <div>
+        <select ng-model='viaCountry' ng-options='country.name as country.code for country in countryList'>
+          <option value=''>select</option>
+        </select>
+      </div>
+
+      <div>
+        <select ng-model='arrCountry' ng-options='country.name group by country.continent for country in countryList' ng-required='true'>
+          <option value=''>select</option>
+        </select>
+      </div>
+
+      <div>
+        <p>depCountry: {{depCountry.name}}</p>
+        <p>viaCountry: {{viaCountry}}</p>
+        <p>arrCountry: {{arrCountry.name}}</p>
+      </div>
+
+      <div ng-show='myRouteForm.$invalid'>
+        required depCountry and arrCountry
+      </div>
+    </form>
+  </div>
+</body>
+</html>

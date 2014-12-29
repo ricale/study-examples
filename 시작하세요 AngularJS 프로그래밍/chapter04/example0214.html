@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="UTF-8">
+  <script src="../libs/angular/angular.js"></script>
+</head>
+
+<body>
+  <form name='sampleForm' ng-init='value1 = true; value2 = "good"'>
+    select1: <input type='checkbox' name='check1' ng-model='value1'>
+    <br/>
+    select2: <input type='checkbox' name='check2' ng-model='value2' ng-true-value='good' ng-false-value='bad'>
+    <br/>
+    <p>select1 value: {{value1}}</p>
+    <p>select2 value: {{value2}}</p>
+  </form>
+</body>
+</html>

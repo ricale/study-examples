@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+  .panel {
+    margin: 10px;
+    -webkit-border-radius: 2px;
+       -moz-border-radius: 2px;
+            border-radius: 2px;
+    border: 1px solid black;
+  }
+
+  .panel.info .panel-title {
+    background-color: gray;
+  }
+
+  .panel.alert .panel-title {
+    background-color: red;
+  }
+
+  .panel .panel-title {
+    background-color: black;
+    color: white;
+    padding: 10px;
+  }
+
+  .panel .panel-content {
+    padding: 10px;
+  }
+  </style>
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          controller('demoCtrl', ['$scope', function($scope) {
+            $scope.noticeList = [{
+              url: "notice/1",
+              text: "first notice"
+            }, {
+              url: "notice/2",
+              text: "second notice"
+            }, {
+              url: "notice/3",
+              text: "third notice"
+            }];
+          }]).
+          directive('panel', function() {
+            return {
+              templateUrl: "template/panelTmpl.html",
+              restrict: "AE",
+              transclude: true,
+              scope: {
+                title: "@",
+                type: "@"
+              },
+            }
+          })
+  </script>
+</head>
+
+<body ng-controller="demoCtrl">
+  <panel title="alert" type="alert">
+    <p>AngularJS</p>
+  </panel>
+  <panel title="notice list" type="info">
+    <ul>
+      <li ng-repeat="notice in noticeList"><a href="{{notice.url}}">{{notice.text}}</a></li>
+    </ul>
+  </panel>
+</body>
+</html>

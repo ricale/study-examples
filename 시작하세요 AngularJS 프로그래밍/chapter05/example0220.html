@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="UTF-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  function parentCtrl($scope) {
+    $scope.parent = {name: 'parent KIM'};
+  }
+
+  function childCtrl($scope) {
+    $scope.child = {name: 'child KO'};
+    $scope.changeParentName = function() {
+      $scope.parent.name = "another KIM";
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <div ng-controller="parentCtrl">
+    <h1>parent name: {{parent.name}}</h1>
+    <div ng-controller='childCtrl' style="padding-left: 20px;">
+      <h2>parent name: {{parent.name}}</h2>
+      <h2>child name: {{child.name}}</h2>
+      <button ng-click="changeParentName()">change parent name</button>
+    </div>
+  </div>
+</body>
+</html>

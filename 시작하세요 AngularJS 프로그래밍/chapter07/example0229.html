@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          controller('demoCtrl', ['$scope', function($scope) {
+            $scope.helloList = [{name: 'google'}, {name: 'daum'}, {name: 'angular'}]
+            $scope.sendMessage = function(toSb) {
+              console.log("send message to "+toSb);
+            }
+          }]).
+          directive('hello', function() {
+            return {
+              templateUrl: "template/helloTmpl2.html",
+              restrict: "AE",
+              scope: {
+                name: "@to",
+                send: "&"
+              },
+            }
+          })
+  </script>
+</head>
+
+<body ng-controller="demoCtrl">
+  <div ng-repeat="helloSb in helloList" hello to="{{helloSb.name}}" send="sendMessage(helloSb.name)"></div>
+</body>
+</html>

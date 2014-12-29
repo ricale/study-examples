@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset='utf-8'/>
+  <script src="../libs/angular/angular.js"></script>
+</head>
+
+<body>
+  agree: <input type='checkbox' ng-model='checked'/>
+  <br/>
+  <div>
+    <span ng-show='checked'>
+      go next: <button ng-if='checked'>next</button>
+    </span>
+  </div>
+  <div>
+    <span ng-hide='checked'>
+      stop
+    </span>
+  </div>
+
+</body>
+</html>

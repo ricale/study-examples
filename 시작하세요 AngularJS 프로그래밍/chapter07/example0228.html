@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          controller('demoCtrl', ['$scope', function($scope) {
+            $scope.name = "name model using ctrl"
+          }]).
+          directive('hello', function() {
+            return {
+              templateUrl: "template/helloTmpl.html",
+              restrict: "AE",
+              scope: { name: "@to" },
+            }
+          })
+  </script>
+</head>
+
+<body ng-controller="demoCtrl">
+  <div hello to="angularJS"></div>
+  <div hello to="daum"></div>
+  <div hello></div>
+</body>
+</html>

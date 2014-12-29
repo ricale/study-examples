@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset='utf-8'/>
+  <script src="../libs/angular/angular.js"></script>
+  <script>
+  function customerCtrl($scope) {
+    var customerList = [{name: 'yh', age: 10}, {name: 'sh', age: 28}];
+    var youngCustomerList = [];
+    angular.forEach(customerList, function(value, key) {
+      if(value.age < 18) {
+        youngCustomerList.push(value);
+      }
+    });
+
+    $scope.customerList = customerList;
+    $scope.youngCustomerList = youngCustomerList;
+  }
+  </script>
+</head>
+
+<body ng-controller='customerCtrl'>
+  <div>
+    customer
+    <ul>
+      <li ng-repeat='customer in customerList'>[{{$index + 1}}] name: {{customer.name}}, age: {{customer.age}}</li>
+    </ul>
+  </div>
+  <div>
+    children
+    <ul>
+      <li ng-repeat='youngCustomer in youngCustomerList'>
+        [{{$index + 1}}] name: {{youngCustomer.name}}, age: {{youngCustomer.age}}
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

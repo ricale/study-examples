@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <title>repeat scope</title>
+  <meta charset='utf-8'/>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'/>
+  <script src="../libs/angular/angular.js"></script>
+</head>
+<body>
+  <div ng-init='customerList = [{name: "yh", age: 25}, {name: "sh", age: 28}]'>
+    Customer List
+    <ul>
+      <li ng-repeat='customer in customerList'>
+        [{{$index + 1}}] name: {{customer.name}}, age: {{customer.age}}
+      </li>
+    </ul>
+  </div>
+
+  <div ng-init='myFriend = {name: "cs", age: 25, hobby: "soccer"}'>
+    Friend
+    <ul>
+      <li ng-repeat='(attr, value) in myFriend'>
+        <p>{{attr}}: {{value}}</p>
+      </il>
+    </ul>
+  </div>
+</body>
+</html>

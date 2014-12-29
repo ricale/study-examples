@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="UTF-8">
+  <script src="../libs/angular/angular.js"></script>
+</head>
+
+<body>
+  <form name='sampleForm' ng-init='name = "cs"'>
+    name: <input type='text' name='name' ng-model='name' ng-axlength='3' ng-required='true'/>
+    <span class='error' ng-show='sampleForm.name.$error.required'>required</span>
+    <br/>
+    cell-phone: <input type='text' name='tel' ng-model='tel' ng-pattern='/^\d{3}-\d{3,4}-\d{4}$/'>
+    <span class='error' ng-show='sampleForm.name.$error.pattern'>000-0000-0000</span>
+    <br/>
+
+    <p>information: {{name}}/{{tel}}</p>
+    <o>sampleForm.name.$valid = {{sampleForm.name.$valid}}</p>
+    <o>sampleForm.name.$error = {{sampleForm.name.$error}}</p>
+    <o>sampleForm.tel.$valid = {{sampleForm.tel.$valid}}</p>
+    <o>sampleForm.tel.$error = {{sampleForm.tel.$error}}</p>
+    <o>sampleForm.$valid = {{sampleForm.$valid}}</p>
+    <o>sampleForm.$error.required = {{sampleForm.$error.required}}</p>
+  </form>
+</body>
+</html>

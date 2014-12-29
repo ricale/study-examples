@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="cookieDemo">
+<head>
+  <meta charset="UTF-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script src="../libs/angular/angular-cookies.js"></script>
+  <script type="text/javascript">
+  angular.module('cookieDemo', ['ngCookies']).
+          controller("mainCtrl", ["$scope", "$cookieStore", function($scope, $cookieStore) {
+            $scope.value = $cookieStore.get("test") || "no exist";
+            $scope.getValue = function() {
+              console.log($scope.value)
+              console.log($cookieStore.get("test"))
+              $scope.value = $cookieStore.get("test");
+              console.log($cookieStore.get("test"))
+            };
+            $scope.putValue = function(iV) {
+              $cookieStore.put("test", iV);
+            }
+          }]);
+  </script>
+</head>
+
+<body ng-controller="mainCtrl">
+  <h1>using cookie service</h1>
+  <p>test key: {{value}}</p>
+  <button ng-click='getValue()'>get cookie value</button>
+  <br/>
+  <input type="text" ng-model="iValue">
+  <button ng-click='putValue(iValue)'>put cookie value</button>
+</body>
+</html>

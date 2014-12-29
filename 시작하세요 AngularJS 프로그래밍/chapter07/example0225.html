@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          directive('hello', function() {
+            return function (scope, iElement, iAttrs, controller) {
+              iElement.html("<h1>Hello "+iAttrs.name+"</h1>")
+            }
+          })
+  </script>
+</head>
+
+<body>
+  <div hello name="angularJS"></div>
+</body>
+</html>
