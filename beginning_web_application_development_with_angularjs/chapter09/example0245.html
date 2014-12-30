@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          controller('mainCtrl', ['$scope', function ($scope) {
+            $scope.cValue = 6300;
+            $scope.dNow = new Date();
+            $scope.jObj = {name: 'sh'};
+            $scope.lString = 'Cindy Kim';
+            $scope.nValue = 10/3;
+          }])
+  </script>
+</head>
+<body>
+  <div ng-controller="mainCtrl">
+    <h1>Filter Example</h1>
+    <h2>Currency Filter </h2>
+    <p>origin: {{cValue}}</p>
+    <p>filtered: {{cValue | currency}}</p>
+
+    <h2>Date Filter </h2>
+    <p>origin: {{dNow}}</p>
+    <p>filtered: {{dNow | date:'yyyy-MM-dd'}}</p>
+
+    <h2>JSON Filter </h2>
+    <p>origin: {{jObj}}</p>
+    <p>filtered: {{jObj | json}}</p>
+
+    <h2>Lowercase Filter </h2>
+    <p>origin: {{lString}}</p>
+    <p>filtered: {{lString | lowercase}}</p>
+
+    <h2>Uppercase Filter </h2>
+    <p>origin: {{lString}}</p>
+    <p>filtered: {{lString | uppercase}}</p>
+
+    <h2>Number Filter </h2>
+    <p>origin: {{nValue}}</p>
+    <p>filtered: {{nValue | number:5}}</p>
+  </div>
+</body>
+</html>

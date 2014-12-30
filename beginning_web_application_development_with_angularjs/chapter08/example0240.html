@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          provider('Logger', [function() {
+            function Logger(msg) {
+              if(checkNativeLogger()) console.log(msg);
+            }
+
+            Logger.debug = function(msg) { if(checkNativeLogger()) console.debug(msg) }
+            Logger.info  = function(msg) { if(checkNativeLogger()) console.info(msg) }
+
+            function checkNativeLogger() {
+              if(console) return true
+              return false
+            }
+
+            this.$get = [function() {
+              return Logger;
+            }]
+          }]).
+          controller('mainCtrl', function ($scope, Logger) {
+            Logger('console.log message')
+            Logger.debug('console.debug message')
+          });
+  </script>
+</head>
+
+<body ng-controller="mainCtrl">
+</body>
+</html>

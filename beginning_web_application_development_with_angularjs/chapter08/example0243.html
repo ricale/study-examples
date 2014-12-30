@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          factory('Hello', [function () {
+            return {
+              helloTo: function(name) {
+                console.log('hello '+name);
+              }
+            }
+          }])
+
+  var injector = angular.injector(['ng', 'sampleApp']),
+      hasHello = injector.has('Hello'),
+      HelloSvc = null;
+
+  if(hasHello) {
+    HelloSvc = injector.get('Hello');
+    HelloSvc.helloTo('cs');
+  }
+
+  </script>
+</head>
+
+<body>
+</body>
+</html>

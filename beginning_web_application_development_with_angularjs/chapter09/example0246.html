@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          controller('mainCtrl', ['$scope', function ($scope) {
+            $scope.userList = [
+              {userId: 'jay',     userName: 'Jay',     userEmail: 'jay@ng.com'},
+              {userId: 'soon',    userName: 'Soon',    userEmail: 'soon@ng.com'},
+              {userId: 'cindy',   userName: 'Cindy',   userEmail: 'cindy@ng.com'},
+              {userId: 'mino',    userName: 'Mino',    userEmail: 'mino@ng.com'},
+              {userId: 'teahong', userName: 'Teahong', userEmail: 'teahong@ng.com'},
+            ]
+          }])
+  </script>
+</head>
+<body>
+  <div ng-controller="mainCtrl">
+    <h1>Filter Example</h1>
+
+    <div>User Name: <input type="text" ng-model="search.userName"></div>
+
+    <ul>
+      <li ng-repeat="user in userList | filter:search">
+        <p>{{user.userId}} | {{user.userName}} | {{user.userEmail}}</p>
+      </li>
+    </ul>
+
+    <h2>limitTo Filter</h2>
+    <div>Limited Count: <input type="number" ng-model="limitNum"></div>
+
+    <ul>
+      <li ng-repeat="user in userList | limitTo:limitNum">
+        <p>{{user.userId}} | {{user.userName}} | {{user.userEmail}}</p>
+      </li>
+    </ul>
+
+    <h2>orderBy Filter</h2>
+    <div>Order:
+      ID <input type="radio" ng-model="order" value="userId">
+      Name <input type="radio" ng-model="order" value="userName">
+      <br/>
+      desc <input type="checkbox" ng-model="reverse">
+    </div>
+
+    <ul>
+      <li ng-repeat="user in userList | orderBy:order:reverse">
+        <p>{{user.userId}} | {{user.userName}} | {{user.userEmail}}</p>
+      </li>
+    </ul>
+
+  </div>
+</body>
+</html>

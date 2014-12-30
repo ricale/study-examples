@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <script src="../libs/jquery/jquery-1.11.2.js"></script>
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          factory('Hello', [function () {
+            return {
+              helloTo: function(name) {
+                return 'hello '+name;
+              }
+            }
+          }])
+
+  $(function() {
+    var injector = angular.injector(['ng', 'sampleApp']),
+        invokedReturnValue = null,
+        helloAppenderInstance1 = null,
+        helloAppenderInstance2 = null;
+
+    invokedReturnValue = injector.invoke(function (Hello) {
+      var hello = Hello.helloTo('cs');
+      $('body').append(hello                                                                                             );
+      return hello;
+    })
+  
+    function HelloAppender(Hello, $compile, $rootScope) {
+      var helloEl = $('<p>{{hello}}</p>'),
+          scope = $rootScope.$new();
+
+      scope.hello = "";
+
+      $('body').append($compile(helloEl)(scope));
+
+      this.setName = function(name) {
+        scope.hello = Hello.helloTo(name);
+        scope.$digest();
+      };
+    }
+
+    HelloAppenderInstance1 = injector.instantiate(HelloAppender);
+    HelloAppenderInstance2 = injector.instantiate(HelloAppender);
+    HelloAppenderInstance1.setName('yh');
+    HelloAppenderInstance2.setName('gy');
+
+    console.log('invokedReturnValue: ', invokedReturnValue);
+    console.log('HelloAppenderInstance1: ', HelloAppenderInstance1);
+    console.log('HelloAppenderInstance2: ', HelloAppenderInstance2);
+  });
+
+  </script>
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8">
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          controller('mainCtrl', ['$scope', '$filter', function ($scope, $filter) {
+            var userList = [
+              {userId: 'jay',     userName: 'Jay',     userEmail: 'jay@ng.com'},
+              {userId: 'soon',    userName: 'Soon',    userEmail: 'soon@ng.com'},
+              {userId: 'cindy',   userName: 'Cindy',   userEmail: 'cindy@ng.com'},
+              {userId: 'mino',    userName: 'Mino',    userEmail: 'mino@ng.com'},
+              {userId: 'teahong', userName: 'Teahong', userEmail: 'teahong@ng.com'},
+            ];
+
+            $scope.value = new Date();
+            $scope.dateFormattedValue = $filter('date')($scope.value, 'yyyy-MM-dd')
+            $scope.userList = userList;
+            $scope.filter = function (filterObj) {
+              $scope.userList = $filter('filter')(userList, filterObj);
+            }
+          }])
+  </script>
+</head>
+<body>
+  <div ng-controller="mainCtrl">
+    <p>Date: {{value}}</p>
+    <p>Filtered date: {{dateFormattedValue}}</p>
+    <hr/>
+    <div>User name: <input type="text" ng-model="search.userName"><button ng-click="filter(search)">Filter</button></div>
+    <ul>
+      <li ng-repeat="user in userList">
+        <p> {{user.userId}} | {{user.userName}} | {{user.userEmail}} </p>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

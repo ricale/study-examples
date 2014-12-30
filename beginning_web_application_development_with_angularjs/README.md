@@ -1,0 +1,2 @@
+- 제목: 시작하세요! AngularJS 프로그래밍
+- 소개: <http://wikibook.co.kr/beginning-angularjs/>
