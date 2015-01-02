@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8"/>
+  <script src="lib/xml2json.min.js"></script>
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          config(function ($httpProvider) {
+            $httpProvider.defaults.headers.common['Accept'] = "application/xml";
+            $httpProvider.defaults.headers.post['Content-Type'] = "application/xml";
+            $httpProvider.defaults.transformResponse.push(function (data, getHeader) {
+              if(getHeader("Content-Type") === "application/xml") {
+                var x2js = new X2JS(),
+                    obj = x2js.xml_str2json(data);
+                return obj;
+              } else {
+                return data;
+              }
+            })
+          }).
+          controller('mainCtrl', function ($scope, $http) {
+            $scope.header = $http.defaults.headers;
+            $http({method: 'GET', url: 'xml/test.xml'}).success(function (data) {
+              console.log(data);
+              $scope.result = data;
+            })
+          })
+  </script>
+</head>
+<body ng-controller="mainCtrl">
+  <div>Current header of $http</div>
+  <p>{{header}}</p>
+  <div>Request Result</div>
+  <p>{{result | json}}</p>
+</body>
+</html>

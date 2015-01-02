@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8"/>
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          controller('mainCtrl', function ($scope, $timeout) {
+            var threeSecPromise = $timeout(function() {
+              return $scope.answer;
+            }, 3000);
+
+            threeSecPromise.then(function (val) {
+              if(val == 39) {
+                $scope.result = "currect";
+              } else {
+                $scope.result = "incurrect";
+              }
+            }, function () {
+              $scope.result = "too hard?";
+            });
+
+            threeSecPromise.finally(function() {
+              $scope.info = "If you want to restart that, refresh now";
+            })
+
+            $scope.giveUp = function() {
+              $timeout.cancel(threeSecPromise);
+            };
+          });
+  </script>
+</head>
+
+<body ng-controller="mainCtrl">
+  <h1>!</h1>
+  10 - 1 + 29 + 2 - 1 = <input ng-model="answer" ng-disabled="result">
+  <button ng-click="giveUp()">give up</button>
+  <p>{{result}}</p>
+  <p>{{info}}</p>
+</body>
+</html>

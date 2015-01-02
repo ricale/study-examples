@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app="sampleApp">
+<head>
+  <meta charset="utf-8"/>
+  <script src="../libs/jquery/jquery-1.11.2.js"></script>
+  <script src="../libs/angular/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('sampleApp', []).
+          value('baseUrl', 'http://localhost:9000/').
+          controller('mainCtrl', function ($scope, $http, baseUrl) {
+            $scope.user = {};
+            $scope.editable = false;
+            $scope.search = function (searchObj) {
+              var reqPromise = $http.get(baseUrl+'getUser', {
+                params: searchObj
+              });
+
+              reqPromise.success(function (data, status, headers, config) {
+                if(data.userId) {
+                  $scope.user = data;
+                  $scope.isSearched = true;
+                }
+                $scope.error = undefined;
+              });
+
+              reqPromise.error(error);
+            };
+
+            $scope.insert = function() {
+              $scope.edit = "insert";
+              $scope.editable = true;
+              $scope.user = {};
+            };
+
+            $scope.update = function() {
+              $scope.edit = "update";
+              $scope.editable = true;
+            };
+
+            $scope.save = function(edit, user) {
+              var reqPromise;
+              switch(edit) {
+                case 'insert':
+                  reqPromise = $http.post(baseUrl+'insertUser', user);
+                  break;
+                case 'update':
+                  reqPromise = $http.put(baseUrl+'updateUser', user);
+                  break;
+                default:
+                  reqpromise = {}
+                  break;
+              }
+
+              reqPromise.success(function (data, status, headers, config) {
+                reset();
+              })
+              reqPromise.error(error);
+            }
+
+            $scope.delete = function(user) {
+              $http.delete(baseUrl+'deleteUser', {
+                params: user
+              }).
+              success(function() {
+                reset();;
+              })
+            }
+
+            $scope.cancel = function() {
+              reset();
+            }
+
+            function error(data, status, headers, config) {
+              $scope.user = {};
+              $scope.error = "failed to load"
+            }
+
+            function reset() {
+              $scope.user = {};
+              $scope.edit = undefined;
+              $scope.error = undefined;
+              $scope.editable = undefined;
+            }
+
+
+          })
+  </script>
+</head>
+<body ng-controller="mainCtrl">
+  <div>
+    User ID: <input type="text" ng-model="searchObj.userId">
+    <button ng-click="search(searchObj)" ng-disabled="editable">Search</button>
+  </div>
+
+  <p ng-if="error">{{error}}</p>
+  <br/>
+
+  <form class="user" name="userForm">
+    User ID: <input type="text" ng-model="user.userId" ng-disabled="!editable && edit != 'insert'">
+    <br/>
+    User Name: <input type="text" ng-model="user.userName" ng-disabled="!editable">
+    <br/>
+    User ID: <input type="text" ng-model="user.userEmail" ng-disabled="!editable">
+  </form>
+  <br/>
+
+  <div ng-show="!edit">
+    <button ng-click="update()" ng-show="isSearched">Edit</button>
+    <button ng-click="insert()">New</button>
+    <button ng-click="delete(user)" ng-show="isSearched">Delete</button>
+  </div>
+  <div ng-show="edit">
+    <button ng-click="save(edit, user)">Save</button>
+    <button ng-click="cancel()">Cancel</button>
+  </div>
+</body>
+</html>
